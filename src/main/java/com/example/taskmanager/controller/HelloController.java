@@ -1,3 +1,6 @@
+/**
+ * Contoller exposes REST endpoints to clients
+ */
 package com.example.taskmanager.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
