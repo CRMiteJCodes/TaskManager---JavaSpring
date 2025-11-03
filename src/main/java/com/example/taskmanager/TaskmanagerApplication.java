@@ -2,12 +2,13 @@ package com.example.taskmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//for CommandLineRunner Test
+/**for CommandLineRunner Test
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.service.TaskService;
+*/
 
 @SpringBootApplication
 public class TaskmanagerApplication {
@@ -16,7 +17,7 @@ public class TaskmanagerApplication {
 		SpringApplication.run(TaskmanagerApplication.class, args);
 	}
 	/* 
-	//for testing TaskService (not a unit test like JUnit but automatic run once test)
+	for testing TaskService using CommandLineRunner (not a unit test like JUnit but automatic run once test)
 	@Bean
 	public CommandLineRunner demo(TaskService service){ //dependency injection of service
 		return args ->{

@@ -53,3 +53,25 @@ public class TaskController {
     }
 
 }
+/**
+ * POST browser testing in console:
+ * fetch("http://localhost:8080/api/tasks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({title: "From Browser", completed: false })
+    });
+ */
+/**
+ * PUT:
+ * fetch("http://localhost:8080/api/tasks/1/done",
+ {
+    method: "PUT"
+ });
+ */
+/**
+ * Delete:
+ * fetch("http://localhost:8080/api/tasks/1/",
+ {
+    method: "DELETE"
+ });
+ */
