@@ -15,7 +15,7 @@ public class TaskmanagerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TaskmanagerApplication.class, args);
 	}
-
+	/* 
 	//for testing TaskService (not a unit test like JUnit but automatic run once test)
 	@Bean
 	public CommandLineRunner demo(TaskService service){ //dependency injection of service
@@ -27,4 +27,5 @@ public class TaskmanagerApplication {
 		};
 	}
 	//@Bean so Spring manages it and executes it by itself
+	*/
 }

@@ -1,5 +1,5 @@
 /**
- * Contoller exposes REST endpoints to clients
+ * Contoller exposes REST endpoints to clients.
  */
 package com.example.taskmanager.controller;
 
