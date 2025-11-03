@@ -70,7 +70,7 @@ public class TaskController {
  */
 /**
  * Delete:
- * fetch("http://localhost:8080/api/tasks/1/",
+ * fetch("http://localhost:8080/api/tasks/1",
  {
     method: "DELETE"
  });
