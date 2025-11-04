@@ -4,9 +4,11 @@ import com.example.taskmanager.model.Task;
 import com.example.taskmanager.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//import java.util.NoSuchElementException; 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class TaskService {
 
@@ -23,35 +25,41 @@ public class TaskService {
     private TaskRepository repo;
 
     public List<Task> getAllTasks() {
-        return repo.findAll();
+        log.info("Fetching all tasks from repository");
+        List<Task> tasks = repo.findAll();
+        log.debug("Fetched {} tasks", tasks.size());
+        return tasks;
     }
 
     public Task addTask(Task t) {
-        return repo.save(t);
+        log.info("Adding new Task: {}",t.getTitle());
+        Task saved = repo.save(t);
+        log.debug("Task saved with ID {}", saved.getId());
+        return saved;
     }
 
     public void deleteTask(Long id) {
+        log.warn("Deleting task with id {}",id);
         repo.deleteById(id);
     }
 
     public Task markDone(Long id) {
+        log.info("Marking task {} as completed", id);
         Task t = repo.findById(id).orElseThrow(() -> new RuntimeException("Task not found!"));
-        /**
-         * repo.findById(id) returns an Optional(a container Object)
-         * because there is a chance that the given id does not exist and returning null
-         * may cause null pointer exception so Optional, and orElseThrow is method on Optional
-         * 
-         * equivalent to:
-         * Optional<Task> ot = repo.findById(id);
-         * if(ot.isPresent()){
-         * Task t=ot.get();
-         * }
-         * else{
-         * throw new NoSuchElementException();
-         * }
-         */
+        
+        if(t.isCompleted()) {
+            log.warn("Task {} is already marked as completed", id);
+            return t;
+        }
+
         t.setCompleted(true);
-        return repo.save(t);
+        Task updated = repo.save(t);
+        /*
+         * repo.save(t) has 2 behaviors, if enitity's id is null it's treated as new and does INSERT
+         * if enitity's id is not null it's treated as existing and does UPDATE  
+         */
+        log.debug("Task {} marked as done", id);
+        return updated;
     }
 }
 

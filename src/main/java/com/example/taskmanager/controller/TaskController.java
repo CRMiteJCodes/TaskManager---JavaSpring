@@ -6,10 +6,13 @@ package com.example.taskmanager.controller;
 
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j; //for logging 
+//logging records what the program is doing while it runs
 
+@Slf4j//Simple Logging Facade for Java
 @RestController
 @RequestMapping("/api/tasks") /**tells springboot that all endpoints 
 * in this controller will start with /api/task
@@ -17,8 +20,24 @@ import java.util.List;
 */
 public class TaskController {
 
-    @Autowired
-    private TaskService service; //private so can be used only in this class
+    //Constructor Injection
+    private final TaskService service;
+    public TaskController(TaskService service){
+        this.service = service;
+    }
+    /*
+     * or: using Lombok
+     * @RequiredArgsConstructor //creates cunstructor for all final fields
+     * ......
+     * private final TaskService service;
+     * ......
+     */
+    //Contructor injection is preferred, safer and better for testing
+    /**
+     * or: field injection using Autowired
+     * @Autowired
+     * private TaskService service; 
+     */
 
     @GetMapping
     /**
@@ -26,6 +45,7 @@ public class TaskController {
      * -> Controller ->JSON Response
      */
     public List<Task> getTasks() {
+        log.info("Fetching all tasks...");
         return service.getAllTasks();
         /**
          * Calls service layer which then calls Repository which later calls Database
@@ -39,22 +59,25 @@ public class TaskController {
          * @RequestBody Task t : tells spring to take the JSON body 
          *  of the HTTP request, convert it to Task object t
          */
+        log.info("Adding new task: {}",t.getTitle());
         return service.addTask(t);
     }
 
     @PutMapping("/{id}/done") //Updation
     public Task markDone(@PathVariable Long id) {//binds the {id} from url to id variable
+        log.info("Marking task {} as done", id);
         return service.markDone(id);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+        log.warn("Deleting task {}", id);
         service.deleteTask(id);
     }
 
 }
 /**
- * POST browser testing in console:
+ * POST browser testing in chrome console:
  * fetch("http://localhost:8080/api/tasks", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
