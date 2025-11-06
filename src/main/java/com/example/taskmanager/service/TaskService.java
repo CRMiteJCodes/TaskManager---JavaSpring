@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 //import java.util.NoSuchElementException; 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import com.example.taskmanager.exception.TaskNotFoundException;
 
 @Slf4j
 @Service
@@ -45,7 +46,7 @@ public class TaskService {
 
     public Task markDone(Long id) {
         log.info("Marking task {} as completed", id);
-        Task t = repo.findById(id).orElseThrow(() -> new RuntimeException("Task not found!"));
+        Task t = repo.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
         
         if(t.isCompleted()) {
             log.warn("Task {} is already marked as completed", id);

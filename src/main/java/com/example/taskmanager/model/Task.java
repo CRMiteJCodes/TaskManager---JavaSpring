@@ -8,6 +8,7 @@
 package com.example.taskmanager.model;
 
 import jakarta.persistence.*; //import JPA annotations
+import jakarta.validation.constraints.NotBlank;
 import lombok.*; //lombok removes the need to write boilerplate
 
 @Entity // Tells JPA that this class representes a database table
@@ -23,6 +24,9 @@ public class Task {
     //eg in setter u can set if id>0 this.id =id
     //Long-wrapper class obj as JPA needs object to set field = null
     private Long id;
+    @NotBlank(message = "Title cannot be blank")
+    //If validation fails, throws MethodArgumentNotValidException which 
+    //is caught by handleValidation of GlobalExceptionHandler class
     private String title;
     private boolean completed;
 

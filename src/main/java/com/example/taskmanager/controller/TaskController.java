@@ -6,6 +6,9 @@ package com.example.taskmanager.controller;
 
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.service.TaskService;
+
+import jakarta.validation.Valid;
+
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -54,7 +57,9 @@ public class TaskController {
 
     @PostMapping
     //Postman/Browser -> Controller -> Service -> Repository -> Database
-    public Task add(@RequestBody Task t) {
+    public Task add(@Valid @RequestBody Task t) {
+        //@Valid tells Spring, before this request enters this method, check this object
+        // using its Annotation(in Model class).
         /**
          * @RequestBody Task t : tells spring to take the JSON body 
          *  of the HTTP request, convert it to Task object t
