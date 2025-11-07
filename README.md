@@ -192,7 +192,7 @@ public class GlobalExceptionHandler {
 
 ---
 
-## 🧑‍💻 Author
+## Author
 
 **Mithun Shanjai**  
 Built with ❤️ while learning Spring Boot fundamentals step-by-step.
