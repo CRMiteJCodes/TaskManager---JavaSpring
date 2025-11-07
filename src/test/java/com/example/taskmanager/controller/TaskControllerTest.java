@@ -2,19 +2,18 @@ package com.example.taskmanager.controller;
 
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.service.TaskService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.mockito.Mockito;
+import com.fasterxml.jackson.databind.ObjectMapper;//converts Java objects to JSON
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;//loads only web layer(Controller and its related configs)
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvc;//simulates HTTP requests
 
+import org.mockito.Mockito;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -38,6 +37,10 @@ class TaskControllerTest {
         when(taskService.getAllTasks()).thenReturn(task);
         mockMvc.perform(get("/api/tasks")).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value("New Task"));
+        //Simulates GET request to /api/task
+        //Expect i. HTTP 200 OK ii. JSON response first element has "title": "New Task"
+        //getAllTasks() returns Array so [0].title, where 0 is index
+        //but other methods only return JSON object 
     }
     
     @Test
@@ -66,6 +69,7 @@ class TaskControllerTest {
     @Test
     void shouldDeleteTask() throws Exception {
         mockMvc.perform(delete("/api/tasks/1")).andExpect(status().isOk());
+        //Does not return anything only STATUS code
         Mockito.verify(taskService).deleteTask(1L);
     }
 
