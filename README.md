@@ -1,6 +1,6 @@
 # 🧠 Task Manager API
 
-A simple Spring Boot REST API for managing tasks — built step-by-step over 9 days to learn Spring Boot fundamentals, testing, logging, and Git workflow.
+A simple Spring Boot REST API for managing tasks — built step-by-step to learn Spring Boot fundamentals, testing, logging, and Git workflow.
 
 ---
 
