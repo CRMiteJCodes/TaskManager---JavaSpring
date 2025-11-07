@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j; //for logging
 //logging records what the program is doing while it runs
 
 @Slf4j//Simple Logging Facade for Java
+@CrossOrigin(origins = "*")//to connect to a frontend
 @RestController
 @RequestMapping("/api/tasks") /**tells springboot that all endpoints 
 * in this controller will start with /api/task
